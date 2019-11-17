@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "AdminDashboard";
+    var admin = ViewBag.Admin;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<h2>Admin Dashborad</h2>
+<hr />
+@if (Session["AdminId"] != null)
+{
+    <h4>Personal Details</h4>
+
+    <fieldset>Employee Id: @admin.EmployeeId</fieldset>
+    <fieldset>Name: @admin.Name</fieldset>
+    <fieldset>Email: @admin.Email</fieldset>
+    <fieldset>Phone: @admin.Phone</fieldset>
+
+
+    <hr />
+    <h4>Employees </h4>
+    <button>@Html.ActionLink("Employee Details", "UserIndex", "Home")</button>
+    <button>@Html.ActionLink("Add Employee", "CreateUser", "Home")</button>
+    <hr />
+    <h4>Mentor </h4>
+    <button>@Html.ActionLink("Mentor Details", "MentorIndex", "Home")</button>
+    <button>@Html.ActionLink("Add Mentor", "CreateMentor", "Home")</button>
+    <hr />
+    <h4>Task </h4>
+    @*<button><a href="@Url.Action("TaskIndex", "home", new { area ="Admin"})">Task Details</a></button>*@
+    <button><a href="@Url.Action("AllEmployeesTask", "home", new { area ="Admin"})">Task Details</a></button>
+
+
+    <button><a href="@Url.Action("TodayStatus", "home", new { area ="Admin"})">Today's Task Status</a></button>
+
+    <button><a href="@Url.Action("TaskStatusByDate", "home", new { area ="Admin" , start=DateTime.Now ,end=DateTime.Now}) ">Task By Date</a></button>
+    <hr />
+    <h4>Role </h4>
+    <button><a href="@Url.Action("RoleIndex", "home", new { area ="Admin"})">Role Details</a></button>
+    <hr />
+
+
+    <h4>Exception Log </h4>
+    <button><a href="@Url.Action("ExceptionLogsDetail", "home", new { area ="Admin"})">Exception Details</a></button>
+    <hr />
+
+    <h4>Email Log </h4>
+    <button><a href="@Url.Action("EmailLogsDetail", "home", new { area ="Admin"})">Email Log Details</a></button>
+    <hr />
+
+    <h4>Email Queue </h4>
+    <button><a href="@Url.Action("EmailQueueDetail", "home", new { area ="Admin"})">Email Queue Details</a></button>
+    <hr />
+
+    <h4>Email Timer </h4>
+    <button><a href="@Url.Action("TimerDetails", "home", new { area ="Admin"})">Email Timers</a></button>
+    <hr />
+
+    <h4 style="color:red">@ViewBag.Message</h4>
+
+    <h4>Start Console Email Service Application</h4>
+    <button><a href="@Url.Action("EmailServiceStart", "home", new { area ="Admin"})">Start</a></button>
+
+
+    <h4>Stop Console Email Service Application</h4>
+    <button><a href="@Url.Action("EmailServiceStop", "home", new { area ="Admin"})">Stop</a></button>
+
+
+    <h4>Console Email Service Application Status</h4>
+    <button><a href="@Url.Action("EmailServiceStatus", "home", new { area ="Admin"})">Status</a></button>
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users", new { area = "" })</button>
+}

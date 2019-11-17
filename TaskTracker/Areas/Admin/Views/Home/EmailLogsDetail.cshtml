@@ -1,0 +1,118 @@
+﻿@*@model IEnumerable<TaskTracker.Models.EmailLogs>*@
+@model PagedList.IPagedList<TaskTracker.Models.EmailLogs>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    /**/
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "EmailLogsDetail";
+}
+
+@if (Session["AdminId"] != null)
+{
+
+
+    <h2>Email Log Details</h2>
+
+    @Html.ActionLink("Back", "AdminDashboard", "home")
+    <hr/>
+
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                ToAddress @*@Html.DisplayNameFor(model => model.ToAddress)*@
+            </th>
+            <th>
+                FromAddress @*@Html.DisplayNameFor(model => model.FromAddress)*@
+            </th>
+            <th>
+                Subject @*@Html.DisplayNameFor(model => model.Subject)*@
+            </th>
+            <th>
+                Body@*@Html.DisplayNameFor(model => model.Body)*@
+            </th>
+            <th>
+                Status @*@Html.DisplayNameFor(model => model.Status)*@
+            </th>
+            <th>
+                IpAddress @*@Html.DisplayNameFor(model => model.IpAddress)*@
+            </th>
+            <th>
+                Smtp @*@Html.DisplayNameFor(model => model.Smtp)*@
+            </th>
+            <th>
+                CreatedOn @*@Html.DisplayNameFor(model => model.CreatedOn)*@
+            </th>
+            @*<th>
+                    ModifiedOn @Html.DisplayNameFor(model => model.ModifiedOn)
+                </th>
+                <th>
+                    DeletedOn @Html.DisplayNameFor(model => model.DeletedOn)
+                </th>
+                <th>
+                    IsDeleted @Html.DisplayNameFor(model => model.IsDeleted)
+                </th>*@
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IpAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Smtp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ModifiedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeletedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>*@
+
+            </tr>
+        }
+
+    </table>
+
+    <div class="pagination" style="margin-left: 400px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("EmailLogsDetail", new { page }))
+    </div>
+
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+}

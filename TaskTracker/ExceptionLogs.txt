@@ -1,0 +1,74 @@
+
+Date = 02-08-2019 00:00:00
+Error occured at = 
+Number for the Exception is = -2146233087
+Message for the exception = An error occurred while updating the entries. See the inner exception for details.
+
+Date = 02-08-2019 05:04:21
+Error occured at = 
+Number for the Exception is = -2146233087
+Message for the exception = An error occurred while updating the entries. See the inner exception for details.
+
+Date = 02-08-2019 10:38:26
+Error occured at = 
+Number for the Exception is = -2146233087
+Message for the exception = An error occurred while updating the entries. See the inner exception for details.
+
+Date = 02-08-2019 10:43:49
+Error occured at = 
+Number for the Exception is = -2146233087
+Message for the exception = An error occurred while updating the entries. See the inner exception for details.
+
+Date = 02-08-2019 16:00:44
+Error occured at = http://localhost:62491/Users/Login
+Number for the Exception is = -2146232032
+Message for the exception = Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+Method where exception occure= GetUserDetailUsingEmail
+
+Date = 09-08-2019 16:13:28
+Error occured at = 
+Number for the Exception is = -2146233079
+Message for the exception = The property 'Id' is part of the object's key information and cannot be modified. 
+Method where exception occure= DeletedFromEmailQueue
+
+Date = 09-08-2019 16:20:45
+Error occured at = 
+Number for the Exception is = -2146233079
+Message for the exception = The property 'Id' is part of the object's key information and cannot be modified. 
+Method where exception occure= DeletedFromEmailQueue
+
+Date = 09-08-2019 16:22:58
+Error occured at = 
+Number for the Exception is = -2146233087
+Message for the exception = An error was reported while committing a database transaction but it could not be determined whether the transaction succeeded or failed on the database server. See the inner exception and http://go.microsoft.com/fwlink/?LinkId=313468 for more information.
+Method where exception occure= GetTries
+
+Date = 09-08-2019 16:22:59
+Error occured at = 
+Number for the Exception is = -2146233087
+Message for the exception = An error was reported while committing a database transaction but it could not be determined whether the transaction succeeded or failed on the database server. See the inner exception and http://go.microsoft.com/fwlink/?LinkId=313468 for more information.
+Method where exception occure= DeletedFromEmailQueue
+
+Date = 09-08-2019 17:08:10
+Error occured at = 
+Number for the Exception is = -2146233079
+Message for the exception = The property 'Id' is part of the object's key information and cannot be modified. 
+Method where exception occure= InsertEmailDeatailsInEmailQueue
+
+Date = 09-08-2019 17:08:10
+Error occured at = 
+Number for the Exception is = -2146233079
+Message for the exception = The property 'Id' is part of the object's key information and cannot be modified. 
+Method where exception occure= InsertEmailDeatailsInEmailQueue
+
+Date = 09-08-2019 17:09:25
+Error occured at = 
+Number for the Exception is = -2146233079
+Message for the exception = The property 'Id' is part of the object's key information and cannot be modified. 
+Method where exception occure= InsertEmailDeatailsInEmailQueue
+
+Date = 16-08-2019 10:43:36
+Error occured at = 
+Number for the Exception is = -2147467261
+Message for the exception = Object reference not set to an instance of an object.
+Method where exception occure= GetEamilQueueDetail

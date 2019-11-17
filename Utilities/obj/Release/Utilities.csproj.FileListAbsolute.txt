@@ -1,0 +1,12 @@
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\bin\Release\Utilities.dll.config
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\bin\Release\Utilities.dll
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\bin\Release\Utilities.pdb
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\bin\Release\EntityFramework.dll
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\bin\Release\EntityFramework.xml
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\obj\Release\Utilities.csprojAssemblyReference.cache
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\obj\Release\Utilities.csproj.CoreCompileInputs.cache
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\obj\Release\Utilities.csproj.CopyComplete
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\obj\Release\Utilities.dll
+C:\Users\abhishek.keshari\Source\Workspaces\TaskTracker\Utilities\obj\Release\Utilities.pdb

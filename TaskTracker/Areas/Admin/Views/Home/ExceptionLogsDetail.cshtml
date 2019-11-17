@@ -1,0 +1,96 @@
+﻿@*@model IEnumerable<TaskTracker.Models.ExceptionLogs>*@
+@model PagedList.IPagedList<Utilities.ExceptionLogs>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "ExceptionLogsDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@if (Session["AdminId"] != null)
+{
+
+    <h2>Exception Log Details</h2>
+
+    @Html.ActionLink("Back", "AdminDashboard", "home")
+    <hr/>
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Method @*@Html.DisplayNameFor(model => model.Method)*@
+            </th>
+            <th>
+                Message @*@Html.DisplayNameFor(model => model.Message)*@
+            </th>
+            <th>
+                Url @*@Html.DisplayNameFor(model => model.Url)*@
+            </th>
+            <th>
+                ExceptionNumber @*@Html.DisplayNameFor(model => model.ExceptionNumber)*@
+            </th>
+            <th>
+                CreatedOn @*@Html.DisplayNameFor(model => model.CreatedOn)*@
+            </th>
+            @*<th>
+                    ModifiedOn @Html.DisplayNameFor(model => model.ModifiedOn)
+                </th>
+                <th>
+                    DeletedOn @Html.DisplayNameFor(model => model.DeletedOn)
+                </th>
+                <th>
+                    IsDeleted @Html.DisplayNameFor(model => model.IsDeleted)
+                </th>*@
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Method)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ModifiedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeletedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>*@
+
+            </tr>
+        }
+
+    </table>
+    <hr />
+    <div class="pagination" style="margin-left: 400px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ExceptionLogsDetail", new { page }))
+    </div>
+
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+}

@@ -1,0 +1,52 @@
+﻿@*mode@*l IEnumerable<TaskTracker.Models.Task>*@
+@model PagedList.IPagedList<TaskTracker.Models.Users>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "EmployeeDashboard";
+    var employee = ViewBag.Employee;
+    var trainee = ViewBag.traineeList;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+@if (Session["UserId"] != null)
+{
+    <h2 style="color:red">@ViewBag.Message</h2>
+    <h4>Personal Details</h4>
+
+    <fieldset>Employee Id: @employee.EmployeeId</fieldset>
+    <fieldset>Name: @employee.Name</fieldset>
+    <fieldset>Email: @employee.Email</fieldset>
+    <fieldset>Phone: @employee.Phone</fieldset>
+    <hr />
+
+
+
+    <h4>Task submitted by You:</h4>
+    <button>@Html.ActionLink("Task Details", "EmployeeTask", "Home")</button>
+
+    <h4>Your trainees detail:</h4>
+    <button>@Html.ActionLink("Trainees Detail", "TraineesDetails", "Home")</button>
+
+
+
+    <h4>Your trainees submitted task detail:</h4>
+    <button>@Html.ActionLink("Trainees Task", "AllTraineeTask", "home")</button>
+
+
+
+    <h2>Submit Your Today's Task</h2>
+    <button>@Html.ActionLink("Submit Your Task", "CreateTask", "Home")</button>
+    <hr />
+
+}
+else
+{
+    < h4 style = "color:red" >< br /> Click hear for login:</ h4 >
+
+
+    < button > @Html.ActionLink("Login", "Login", "Users") </ button >
+}

@@ -1,0 +1,109 @@
+﻿@model TaskTracker.Models.Mentor
+
+@{
+    ViewBag.Title = "Create";
+    var item1 = ViewBag.trainee;
+    var item2 = ViewBag.traineer;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function cleanList(ddl) {
+            var val = ddl.options[ddl.selectedIndex].value;
+
+            //Remove selected
+            $("#list2 option[value='" + val + "']").remove();
+        }
+    </script>
+</head>
+</html>
+
+@if (Session["AdminId"] != null)
+{
+
+    <h2>Create Mentor</h2>
+
+    <h4 style="color:red">@ViewBag.Message</h4>
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="dl" class="form-horizontal">
+            <hr />
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <lable class="control-label col-md-2">Trainee</lable>
+                    <select id="list1" name="EmployeeId" onchange="cleanList(this)" class="form-control" required>
+
+                        <Option selected=selected value="Please select" style="height:inherit">Please Select Employee</Option>
+
+                        @foreach (var type in item1)
+                        {
+                            <Option value="@type.Id">@type.Name (@type.EmployeeId)</Option>
+
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <lable class="control-label col-md-2">     Mentor</lable>
+                    <select id="list2" name="EmployeeMentorId" class="form-control" required>
+                        <Option selected=selected value="Please select">Please Select Mentor  </Option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-pull-0">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+
+        </div>
+
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "MentorIndex", "Home") |
+        @Html.ActionLink("Back to Dashboard", "AdminDashboard", "Home")
+    </div>
+
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(document).ready(function () {
+        $("#list1").change(function (e) {
+            var employeeId = $("#list1 option:selected").val();
+                $.ajax({
+                    url: '@Url.Action("Remove_Trainee", "Home")',
+                    type: "GET",
+                    data: { id: employeeId },
+                    dataType: "HTML",
+                    success: function (result) {
+                        if (result != null) {
+                            $('#list2').html(result);
+                        }
+                    }
+                });
+        });
+
+    });
+</script>

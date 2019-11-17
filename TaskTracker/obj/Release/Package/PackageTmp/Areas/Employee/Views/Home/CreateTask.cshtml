@@ -1,0 +1,139 @@
+﻿@model TaskTracker.Models.Task
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Session["UserId"] != null)
+{
+
+    <h2>Submit Task </h2>
+
+    using (Html.BeginForm("CreateTask", "Home", FormMethod.Post, new { enctype = "multipart/form-data", optional = "optional" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+ 
+            <hr />
+            <h4 style="color:red">
+                @*@Html.ValidationSummary()*@
+            </h4><div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Title, 0, 0, new { @class = "form-control",style = "width:100%;" } )
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description,20, 0, new { @class = "form-control",style="width:100%;" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            @*@* Using session to insert the EmployeeId into Task table to identify the task====================================
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeId,"Employee Id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EmployeeId, new {htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.DateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeId, "EmployeeId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("EmployeeId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.CreatedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ModifiedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ModifiedOn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ModifiedOn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DeletedOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DeletedOn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DeletedOn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsDeleted)
+                            @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>*@
+
+
+            <h2>Attacment</h2>
+            <p>Select one or multiple files</p>
+
+
+
+            @*@Html.TextBox("file", "", new { type = "file",, @multiple = "multiple" }) <br />*@
+
+            @*<form method="post" enctype="multipart/form-data" asp-controller="Tasks" asp-action="Create">*@
+            <input type="file" name="files" multiple />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+            @*</form>*@
+        </div>
+        <br /><hr />
+        @Html.ActionLink("Back", "EmployeeDashboard", "Home")
+    }
+    if (Session["AdminId"] != null)
+    {
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

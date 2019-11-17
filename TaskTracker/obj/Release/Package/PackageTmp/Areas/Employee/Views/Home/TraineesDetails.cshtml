@@ -1,0 +1,37 @@
+﻿@model PagedList.IPagedList<TaskTracker.Models.Users>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "TraineesDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Trainees Details</h2>
+
+<table>
+
+    <tr>
+        <th>Employee Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr style="border:2px solid black">
+            <td>@Html.DisplayFor(modelItem => item.EmployeeId)</td>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+
+        </tr>
+    }
+
+</table>
+<hr />
+<div class="pagination" style="">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("TraineesDetails", new { page }))
+</div>
+<hr />
+@Html.ActionLink("Back", "EmployeeDashboard", "home")

@@ -1,0 +1,86 @@
+﻿@*@model IEnumerable<TaskTracker.Models.Task>*@
+@model PagedList.IPagedList<TaskTracker.Models.Task>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "EmployeeTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Task List</h2>
+<h4 style="color:red">@ViewBag.Message</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+
+        <th>
+            CreatedOn
+        </th>
+
+        <th>
+            Number of Attachments
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        int count = 0;
+    <tr>
+        <td>
+
+            <a href="@Url.Action("EmployeeTaskDetails", "Home", new { area = "Employee", id = item.Id })"> @item.Title</a>
+
+        </td>
+        <td>
+            @{
+                string parameterValue;
+                if (item.Description.ToString().Length > 10)
+                {
+                    parameterValue = item.Description.ToString().Substring(0, 9) + "...";
+                }
+                else
+                {
+                    parameterValue = item.Description.ToString();
+                };
+            }
+
+            @Html.DisplayFor(modelItem => parameterValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+
+        <td>
+            @foreach (var attchment in ViewBag.attachement)
+            {
+                if (item.Id == attchment.TaskId)
+                {
+                    count++;
+                }
+            }
+            @count
+
+
+        </td>
+
+
+    </tr>
+    }
+
+</table>
+<hr />
+<div class="pagination" style="">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("EmployeeTask", new { page }))
+</div>
+<hr />
+@Html.ActionLink("Back", "EmployeeDashboard", "Home")

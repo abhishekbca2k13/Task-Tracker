@@ -1,0 +1,88 @@
+﻿@model IEnumerable<TaskTracker.Models.Users>
+
+@{
+    ViewBag.Title = "Today's Employees Task Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Today's Employees Task Status</h2>
+<hr />
+
+<table class="table" title="Employee Who has Submitted Today's task">
+    <caption style="color:black"><b>Employees Who has Submitted Today's task</b></caption>
+    <tr>
+        <th>
+            Employee Id
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>Task Title</th>
+        <th>Submitted At</th>
+
+    </tr>
+    @if (ViewBag.taskSubmittedUsersList != null)
+    {
+        foreach (var item in ViewBag.taskSubmittedUsersList)
+        {
+            <tr>
+                <td>
+                    @item.EmployeeId
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                @foreach (var task in ViewBag.taskList)
+                {
+
+                    if (item.Id == task.EmployeeId)
+                    {
+                        <td>
+                            <a href="@Url.Action("TaskDetails", "home", new { area = "Admin" , id=task.Id })">@task.Title</a>
+                        </td>
+                        <td>
+                            @task.CreatedOn
+                        </td>
+                    }
+
+                }
+
+            </tr>
+        }
+
+    }
+
+</table>
+<hr />
+
+<table class="table" title="Employee Who has not Submitted Today's task">
+    <caption style="color:black"><b>Employees Who has not Submitted Today's task</b></caption>
+    <tr>
+        <th>
+            Employee Id
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+    </tr>
+    @if (ViewBag.taskNotSubmittedUsersList != null)
+    {
+        foreach (var item in ViewBag.taskNotSubmittedUsersList)
+        {
+            <tr>
+                <td>
+                    @item.EmployeeId
+                </td>
+                <td>
+                    @item.Name
+                </td>
+
+            </tr>
+        }
+
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Back to Dashboard", "AdminDashboard")
+</div>

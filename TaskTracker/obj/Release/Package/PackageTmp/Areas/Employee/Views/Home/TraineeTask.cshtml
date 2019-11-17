@@ -1,0 +1,100 @@
+﻿@model PagedList.IPagedList<TaskTracker.Models.Task>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Employee Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>Trainee Task</h2>
+
+@if (Session["UserName"] != null)
+{
+    <hr />
+    <h4>Email : @ViewBag.EmployeeDetails.Email</h4>
+    <h4>Name : @ViewBag.EmployeeDetails.Name</h4>
+    <h4>Employee Id : @ViewBag.EmployeeDetails.EmployeeId</h4>
+
+    <hr />
+    <h2 style="color:red">@ViewBag.Message</h2>
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+
+            <th>
+                CreatedOn
+            </th>
+
+            <th>
+                Number of Attachments
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            int count = 0;
+            <tr>
+                <td>
+
+                    <a href="@Url.Action("TaskDetails","Home",new { area = "Employee" ,id=item.Id })"> @item.Title</a>
+                    @*@Html.ActionLink(item.Title, "TaskDetails","home", new { area = "Admin", id = item.Id })*@
+                </td>
+                <td>
+                    @{
+                        string parameterValue;
+                        if (item.Description.ToString().Length > 10)
+                        {
+                            parameterValue = item.Description.ToString().Substring(0, 15) + "...";
+                        }
+                        else
+                        {
+                            parameterValue = item.Description.ToString();
+                        };
+                    }
+
+                    @Html.DisplayFor(modelItem => parameterValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+
+                <td>
+                    @foreach (var attchment in ViewBag.attachement)
+                    {
+                        if (item.Id == attchment.TaskId)
+                        {
+                            count++;
+                        }
+                    }
+                    @count
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+    <hr />
+    <div class="pagination" style="margin-left: 400px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+    <hr />
+    @Html.ActionLink("Back", "AllTraineeTask", "home") <br />
+    @Html.ActionLink("Back to Dashboard", "EmployeeDashboard", "home");
+
+
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+}

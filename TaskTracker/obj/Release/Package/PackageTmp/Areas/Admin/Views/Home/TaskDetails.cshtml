@@ -1,0 +1,87 @@
+﻿@model TaskTracker.Models.Task
+
+@{
+    ViewBag.Title = "TaskDetails";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>Task Details</h2>
+@if (Session["AdminId"] != null)
+{
+    <div>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Task @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @ViewBag.task.Title
+            </dd>
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @ViewBag.task.Description
+            </dd>
+            <hr />
+            <dt>
+                Date of Submission
+            </dt>
+
+            <dd>
+                @ViewBag.task.DateTime
+            </dd>
+            <hr />
+            <dt>
+                Employee @Html.DisplayNameFor(model => model.Users.Name)
+            </dt>
+
+            <dd>
+                @ViewBag.task.Users.Name
+            </dd>
+            <hr />
+            <dt>
+                Attachements
+            </dt>
+            <dd>
+                @if (ViewBag.attachement.Count > 0)
+                {
+                    foreach (var item in ViewBag.attachement)
+                    {
+                        <button>
+                            <a href="~/UploadedFile/@item.FileName" download>@item.FileName<a />
+                        </button>
+
+                    }
+                }
+                else
+                {
+                    <b style="color:red">No Attachements</b>
+                }
+
+            </dd>
+        </dl>
+    </div>
+    <hr />
+    @*@Html.ActionLink("Back", "EmployeeTask", "Home",new { id = ViewBag.task.Id })*@
+    <br>
+    @Html.ActionLink("Back to All Employee Task ", "AllEmployeesTask", "Home")
+    <br>
+    @Html.ActionLink("Back to Admin Dashboard", "AdminDashboard", "Home")
+    <br />
+    @Html.ActionLink("Back to Today's Task Status", "TodayStatus", "Home")
+    <br />
+    @Html.ActionLink("Back to Task Status By Date", "TaskStatusByDate", "Home")
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+}

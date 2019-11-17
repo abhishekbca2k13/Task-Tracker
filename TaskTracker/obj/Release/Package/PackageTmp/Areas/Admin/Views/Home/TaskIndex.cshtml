@@ -1,0 +1,123 @@
+﻿
+@model PagedList.IPagedList<TaskTracker.Models.Task>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@if (Session["AdminId"] != null)
+{
+    <h2>Index</h2>
+    <h2 style="color:red">@ViewBag.Message</h2>
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    <table class="table">
+        <tr>
+            <th>
+                Title @*@Html.DisplayNameFor(model => model.Title)*@
+            </th>
+            <th>
+                Description @*@Html.DisplayNameFor(model => model.Description)*@
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.DateTime)
+                </th>*@
+            <th>
+                CreatedOn @*DateTime @Html.DisplayNameFor(model => model.CreatedOn)*@
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ModifiedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeletedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsDeleted)
+                </th>*@
+            <th>
+                Name @*@Html.DisplayNameFor(model => model.Users.Name)*@
+            </th>
+            <th>
+                Employee Id @*@Html.DisplayNameFor(model => model.Users.Id)*@
+            </th>
+            <th>
+                Attachment
+            </th>
+
+            @*<th></th>*@
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ModifiedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeletedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Users.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Users.Id)
+                </td>
+                <td>
+                    @foreach (var item2 in ViewBag.attachement)
+                    {
+                        if (item.Id == item2.TaskId)
+                        {
+
+                            <button>
+                                <a href="~/UploadedFile/@item2.FileName" download>@item2.FileName<a />
+                            </button>
+
+                        }
+
+                    }
+                </td>
+
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id })|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+
+  
+    <hr />
+    <div class="pagination" style="margin-left: 400px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+    <hr />
+    @Html.ActionLink("Back", "AdminDashboard", "home")
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+}

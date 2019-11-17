@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TaskTracker.Models.Users>
+
+@{
+    ViewBag.Title = "Trash";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Trash</h2>
+<h4 style="color:red">@ViewBag.Message</h4>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedOn)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Role.Type)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeletedOn)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Type)
+            </td>
+            <td>
+                @Html.ActionLink("Restore", "RestoreUser", new { id = item.Id }) |
+
+                    @Html.ActionLink("Delete", "DeleteUserPermanent", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<hr />
+@Html.ActionLink("Back", "AdminDashboard", "Home")

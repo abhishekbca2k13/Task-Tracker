@@ -1,0 +1,53 @@
+﻿@model PagedList.IPagedList<TaskTracker.Models.Task>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "TraineesTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>TraineesTask</h2>
+
+<table>
+
+    <tr>
+        <th>Task Id</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>DateTime</th>
+        <th>EmployeeId</th>
+        <th>Employee Name</th>
+        <th>Attachement</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.EmployeeId)</td>
+            <td>@Html.DisplayFor(modelItem => item.Users.Name)</td>
+            <td>
+                @foreach (var item2 in ViewBag.attachement)
+                {
+                    if (item.Id == item2.TaskId)
+                    {
+                        <button>
+                            <a href="~/UploadedFile/@item2.FileName" download> Download Attachment</a>
+                        </button>
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<hr />
+<div class="pagination" style="">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("TraineesTask", new { page }))
+</div>
+<hr />
+@Html.ActionLink("Back", "EmployeeDashboard", "home")

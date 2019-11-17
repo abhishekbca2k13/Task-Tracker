@@ -1,0 +1,60 @@
+﻿@model PagedList.IPagedList<TaskTracker.Models.Users>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>All Trainee Task</h2>
+@if (Session["UserName"] != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Employee Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Submitted Task
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(mode => item.EmployeeId)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => item.Name)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("View Task", "EmployeeTask", "Home", new { id = item.Id })*@
+                    <a href="@Url.Action("TraineeTask", "home", new { area = "Employee" , id=item.Id })">View Task</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <div class="pagination" style="margin-left: 400px">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+    <hr />
+    @Html.ActionLink("Back", "EmployeeDashboard", "home")
+}
+else
+{
+    <h4 style="color:red">Login as Admin to access this section<br />Click hear for login:</h4>
+
+    <button>@Html.ActionLink("Login", "Login", "Users")</button>
+}
+

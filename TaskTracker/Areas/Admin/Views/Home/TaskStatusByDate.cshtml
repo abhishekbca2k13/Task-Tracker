@@ -1,0 +1,123 @@
+﻿@model IEnumerable<TaskTracker.Models.Users>
+
+@{
+
+    ViewBag.Title = "TaskStatusByDate";
+}
+
+
+<h2>Task Status By Date</h2>
+@*<a href="@Url.Action("TaskStatusByDate", "home", new { area ="Admin" , start=DateTime.Now ,end=DateTime.Now}) ">Task By Date</a>*@
+
+<form method="post">
+    From: <input type="date" id="datefield" name="end" required max="" />
+    To:<input type="date" id="datefield2" name="start" required max="" />
+    <input type="submit" value="Search" />
+</form>
+
+<hr />
+@for (DateTime i = ViewBag.start.Date; i >= ViewBag.end.Date; i = i.AddDays(-1))
+{
+    if (i.DayOfWeek.ToString() != "Sunday")
+    {
+        <h4 style="color:black">@i.Date.DayOfWeek, @i.Date.ToLongDateString()</h4>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Employee Id@*@Html.DisplayNameFor(model => model.Id)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    Status
+                </th>
+
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                int flag = 0, taskId = 0;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @if (ViewBag.taskList.Count > 0)
+                    {
+                        foreach (var task in ViewBag.taskList)
+                        {
+                            if (item.Id == task.EmployeeId && task.CreatedOn.Date == i.Date)
+                            {
+                                flag = 1;
+                                taskId = task.Id;
+                                break;
+
+                            }
+
+                        }
+                        if (flag == 1)
+                        {
+                            <td style="color:green">
+                                <a href="@Url.Action("TaskDetails", "home", new { area = "Admin" , id=taskId })">Submitted</a>
+                            </td>
+
+                        }
+                        else
+                        {
+
+                            <td style="color:red">
+                                Not Submitted
+                            </td>
+
+                        }
+                    }
+                    else
+                    {
+                        <td style="color:red">
+                            Not Submitted
+                        </td>
+
+                    }
+
+
+
+                </tr>
+            }
+
+        </table>
+    }
+
+
+}
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("datefield").setAttribute("max", today);
+
+    document.getElementById("datefield2").setAttribute("max", today);
+
+
+</script>
+
+
+
+<div>
+    @Html.ActionLink("Back to Dashboard", "AdminDashboard", "Home")
+</div>
+
+
